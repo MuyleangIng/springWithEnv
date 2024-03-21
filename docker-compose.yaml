@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  ecommerce_store:
+    container_name: 'ecommerce_store'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - TZ=Asia/Bangkok
+    ports:
+      - '3014:8080'
+    volumes:
+      - '/home/automatex/deployment/file-upload:/images'
+
+#create netwrok
+networks:
+  ecommerce_store-net:
+    name: ecommerce_store-net
+    driver: bridge
+  

@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  ecommerce_store:
+    container_name: 'ecommerce_store'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      # - SPRING_PROFILES_ACTIVE=prod
+      - SERVER_PORT=${SERVER_PORT}
+      - PG_HOST=${PG_HOST}
+      - PG_PORT=${PG_PORT}
+      - PG_DATABASE=${PG_DATABASE}
+      - PG_USERNAME=${PG_USERNAME}
+      - PG_PASSWORD=${PG_PASSWORD}
+      - PG_SCHEMA=${PG_SCHEMA}
+      - FILE_SERVER_PATH=${FILE_SERVER_PATH}
+      - FILE_CLIENT_PATH=${FILE_CLIENT_PATH}
+      - FILE_SERVER_URL=${FILE_SERVER_URL}
+      - FILE_DOWNLOAD_URL=${FILE_DOWNLOAD_URL}
+      - MAX_FILE_SIZE=${MAX_FILE_SIZE}
+      - MAX_FILE_REQUEST_SIZE=${MAX_FILE_REQUEST_SIZE}
+    ports:
+      - '3014:${SERVER_PORT}'
+    volumes:
+      - '/home/automatex/deployment/file-upload:/images'
+    env_file:
+      - .env  
+networks:
+  ecommerce_store-net:
+    name: ecommerce_store-net
+    driver: bridge
